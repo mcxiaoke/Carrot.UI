@@ -8,8 +8,7 @@
         mc:Ignorable="d" Title="MainWindow" Height="450" Width="600">
     <StackPanel Orientation="Vertical">
 
-        <cui:ColorComboBox Margin="6" SelectedIndex="10" ColumnCount="0" VerticalAlignment="Center"
-                HorizontalAlignment="Center" />
+        <cui:ColorComboBox VerticalAlignment="Center" HorizontalAlignment="Center" />
 
     </StackPanel>
 </Window>
