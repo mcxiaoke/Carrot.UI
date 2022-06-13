@@ -20,9 +20,9 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="20" Height="20" Margin="6,0,6,0"
+                        <Border Width="20" Height="20"
                                 Background="{Binding Value, Converter={StaticResource ColorBrushConverter}}"
-                                BorderBrush="Black" BorderThickness="1" />
+                                BorderBrush="Black" BorderThickness="0.5" />
                         <Label Content="{Binding Key}" />
                         <!--<TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>

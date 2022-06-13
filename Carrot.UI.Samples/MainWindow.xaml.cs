@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Carrot.UI.Controls;
 using Carrot.UI.Controls.Utils;
+using Carrot.UI.Controls.Picker;
 
 namespace Carrot.UI.Samples {
     /// <summary>
@@ -22,26 +23,31 @@ namespace Carrot.UI.Samples {
     /// </summary>
 
     public partial class MainWindow : Window {
-        private List<KeyValuePair<string, Color>> _extraColors = new List<KeyValuePair<string, Color>>() {
-            new KeyValuePair<string, Color>("TestColor1",
-                UIHelper.ParseColor("#123456")),
-            new KeyValuePair<string, Color>("TestColor2",
-                UIHelper.ParseColor("#80cccccc")),
+        public List<ColorComboBoxItem> _extraColors1 = new List<ColorComboBoxItem>() {
+             ColorComboBoxItem.Create("TestColor111",
+                UIHelper.ParseColor("#334455")),
+             ColorComboBoxItem.Create("TestColor211",
+                UIHelper.ParseColor("#6688aa")),
         };
 
-        public List<KeyValuePair<string, Color>> CustomColors {
-            get => _extraColors;
-            set => _extraColors = value;
-        }
+        public List<ColorComboBoxItem> _extraColors2 = new List<ColorComboBoxItem>() {
+             ColorComboBoxItem.Create("TestColor133",
+                UIHelper.ParseColor("#123456")),
+             ColorComboBoxItem.Create("TestColor244",
+                UIHelper.ParseColor("#80cccccc")),
+        };
 
 
         public MainWindow() {
             InitializeComponent();
-            colorBox.DataContext = CustomColors;
+            colorBox1.DataContext = _extraColors1;
         }
 
-        private void ColorBox_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<KeyValuePair<string, Color>> e) {
+        private void ColorBox_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<ColorComboBoxItem> e) {
             Debug.WriteLine($"ColorBox_SelectedColorChanged changed {e.OldValue} => {e.NewValue}");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
         }
     }
 }

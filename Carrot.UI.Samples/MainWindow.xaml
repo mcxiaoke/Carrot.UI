@@ -8,9 +8,13 @@
         mc:Ignorable="d" Title="MainWindow" Height="450" Width="600">
     <StackPanel Orientation="Vertical">
 
-        <cui:ColorComboBox x:Name="colorBox" SelectedIndex="30" VerticalAlignment="Center"
+        <cui:ColorComboBox x:Name="colorBox1" SelectedIndex="0" VerticalAlignment="Center"
                 HorizontalAlignment="Center" ExtraColors="{Binding}"
                 SelectedColorChanged="ColorBox_SelectedColorChanged" />
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="button" Click="Button_Click">Select Font</Button>
+        </StackPanel>
 
     </StackPanel>
 </Window>
