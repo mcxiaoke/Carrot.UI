@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Carrot.UI.Controls;
 using Carrot.UI.Controls.Utils;
 using Carrot.UI.Controls.Picker;
+using Carrot.UI.Controls.Font;
 
 namespace Carrot.UI.Samples {
     /// <summary>
@@ -48,6 +49,26 @@ namespace Carrot.UI.Samples {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
+            try {
+                ColorFontDialog fntDialog = new ColorFontDialog();
+                fntDialog.ShowColorPicker = true;
+                fntDialog.Owner = this;
+                fntDialog.Font = FontInfo.GetControlFont(this.textBox);
+                if (fntDialog.ShowDialog() == true) {
+                    FontInfo selectedFont = fntDialog.Font;
+
+                    if (selectedFont != null) {
+                        FontInfo.ApplyFont(this.textBox, selectedFont);
+                    }
+                }
+            } catch (Exception ex) {
+                Debug.WriteLine(ex.StackTrace);
+            }
+        }
+
+        private void FontComboBox_FontChanged(object sender, RoutedEventArgs e) {
+            //var fb = sender as FontComboBox;
+            //Debug.WriteLine($"FontComboBox_FontChanged selected={fb.SelectedFont} {fb.SelectedIndex}");
         }
     }
 }

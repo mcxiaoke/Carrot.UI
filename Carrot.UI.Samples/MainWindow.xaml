@@ -4,17 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Carrot.UI.Samples"
-        xmlns:cui="clr-namespace:Carrot.UI.Controls.Picker;assembly=Carrot.UI.Controls"
-        mc:Ignorable="d" Title="MainWindow" Height="450" Width="600">
-    <StackPanel Orientation="Vertical">
+        xmlns:cupicker="clr-namespace:Carrot.UI.Controls.Picker;assembly=Carrot.UI.Controls"
+        xmlns:cufont="clr-namespace:Carrot.UI.Controls.Font;assembly=Carrot.UI.Controls"
+        mc:Ignorable="d" Title="MainWindow" Height="450" Width="600" SizeToContent="Height"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Orientation="Vertical" Margin="12">
 
-        <cui:ColorComboBox x:Name="colorBox1" SelectedIndex="0" VerticalAlignment="Center"
-                HorizontalAlignment="Center" ExtraColors="{Binding}"
+        <cupicker:ColorComboBox Margin="12" x:Name="colorBox1" SelectedIndex="0"
+                VerticalAlignment="Center" HorizontalAlignment="Center" ExtraColors="{Binding}"
                 SelectedColorChanged="ColorBox_SelectedColorChanged" />
 
-        <StackPanel Orientation="Horizontal">
-            <Button x:Name="button" Click="Button_Click">Select Font</Button>
-        </StackPanel>
+        <TextBox Margin="12" x:Name="textBox" Padding="12" FontSize="16" Text="中文字体 ABC abc XYZ xyz" />
+
+        <Button Padding="12" Margin="12" x:Name="button" Click="Button_Click">Select Font</Button>
+
+        <cufont:FontComboBox HorizontalAlignment="Center" MinWidth="200" SelectedIndex="5" />
 
     </StackPanel>
 </Window>

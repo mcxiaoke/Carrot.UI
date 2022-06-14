@@ -1,5 +1,5 @@
 ﻿[*.cs]
-
+dotnet_diagnostic.IDE0017.severity = none
 dotnet_diagnostic.IDE0018.severity = none
 dotnet_diagnostic.IDE0035.severity = none
 dotnet_diagnostic.IDE0044.severity = none
@@ -7,6 +7,13 @@ dotnet_diagnostic.IDE0051.severity = none
 dotnet_diagnostic.IDE0052.severity = none
 dotnet_diagnostic.IDE0059.severity = none
 dotnet_diagnostic.IDE0060.severity = none
+dotnet_diagnostic.IDE0090.severity = none
+dotnet_diagnostic.CS0649.severity = none
+dotnet_diagnostic.RCS1036.severity = none
+dotnet_diagnostic.RCS1132.severity = none
+dotnet_diagnostic.RCS1163.severity = none
+dotnet_diagnostic.RCS1213.severity = none
+dotnet_diagnostic.RCS1214.severity = none
 
 [*.cs]
 #### 命名样式 ####
@@ -98,6 +105,9 @@ csharp_style_deconstructed_variable_declaration = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
+# RCS1036: Remove unnecessary blank line.
+dotnet_diagnostic.RCS1036.severity = none
+
 [*.vb]
 #### 命名样式 ####
 
@@ -168,7 +178,7 @@ dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_null_propagation = true:suggestion
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
 dotnet_style_prefer_auto_properties = true:silent
-dotnet_style_object_initializer = true:suggestion
+dotnet_style_object_initializer = true:none
 dotnet_style_collection_initializer = true:suggestion
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
 dotnet_style_prefer_conditional_expression_over_assignment = true:silent
@@ -181,3 +191,6 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 dotnet_style_predefined_type_for_locals_parameters_members = true:silent
 dotnet_style_predefined_type_for_member_access = true:silent
+
+# IDE0017: 简化对象初始化
+dotnet_diagnostic.IDE0017.severity = none

@@ -95,9 +95,7 @@ namespace Carrot.UI.Controls.Picker {
 
         private void ColorComboBox_Loaded(object sender, RoutedEventArgs e) {
             Debug.WriteLine("ColorComboBox_Loaded");
-            ExtraColors?.ForEach(item => {
-                Debug.WriteLine($"ColorComboBox_Loaded extra {item.Key} {item.Value}");
-            });
+            ExtraColors?.ForEach(item => Debug.WriteLine($"ColorComboBox_Loaded extra {item.Key} {item.Value}"));
             var allColors = new List<ColorComboBoxItem>();
             if (ExtraColors?.Count > 0) {
                 allColors.AddRange(ExtraColors);
