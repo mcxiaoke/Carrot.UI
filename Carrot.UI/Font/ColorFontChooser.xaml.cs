@@ -20,9 +20,9 @@ namespace Carrot.UI.Controls.Font {
 
         public Visibility ColorPickerVisibility => ShowColorPicker ? Visibility.Visible : Visibility.Collapsed;
 
-        public FontInfo SelectedFont {
+        public FontChooserInfo SelectedFont {
             get {
-                return new FontInfo(this.txtSampleText.FontFamily,
+                return new FontChooserInfo(this.txtSampleText.FontFamily,
                                     this.txtSampleText.FontSize,
                                     this.txtSampleText.FontStyle,
                                     this.txtSampleText.FontStretch,

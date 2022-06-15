@@ -7,20 +7,20 @@ namespace Carrot.UI.Controls.Font {
     /// Interaction logic for ColorFontDialog.xaml
     /// </summary>
     public partial class ColorFontDialog : Window {
-        private FontInfo selectedFont;
+        private FontChooserInfo selectedFont;
 
         public ColorFontDialog() {
             this.selectedFont = null; // Default
             InitializeComponent();
         }
 
-        public FontInfo Font {
+        public FontChooserInfo Font {
             get {
                 return this.selectedFont;
             }
 
             set {
-                FontInfo fi = value;
+                FontChooserInfo fi = value;
                 this.selectedFont = fi;
             }
         }
@@ -31,11 +31,10 @@ namespace Carrot.UI.Controls.Font {
         }
 
         private void SyncFontName() {
-            string fontFamilyName = this.selectedFont.Family.Source;
+            string fontFamilyName = this.selectedFont.Font.Name;
             int idx = 0;
-            foreach (var item in this.colorFontChooser.lstFamily.Items) {
-                string itemName = item.ToString();
-                if (fontFamilyName == itemName) {
+            foreach (FontExtraInfo item in this.colorFontChooser.lstFamily.Items) {
+                if (fontFamilyName == item.Name) {
                     break;
                 }
                 idx++;
@@ -57,11 +56,11 @@ namespace Carrot.UI.Controls.Font {
         }
 
         private void SyncFontTypeface() {
-            string fontTypeFaceSb = FontInfo.TypefaceToString(this.selectedFont.Typeface);
+            string fontTypeFaceSb = FontChooserInfo.TypefaceToString(this.selectedFont.Typeface);
             int idx = 0;
             foreach (var item in this.colorFontChooser.lstTypefaces.Items) {
                 FamilyTypeface face = item as FamilyTypeface;
-                if (fontTypeFaceSb == FontInfo.TypefaceToString(face)) {
+                if (fontTypeFaceSb == FontChooserInfo.TypefaceToString(face)) {
                     break;
                 }
                 idx++;

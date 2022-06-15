@@ -6,19 +6,30 @@
         xmlns:local="clr-namespace:Carrot.UI.Samples"
         xmlns:cupicker="clr-namespace:Carrot.UI.Controls.Picker;assembly=Carrot.UI.Controls"
         xmlns:cufont="clr-namespace:Carrot.UI.Controls.Font;assembly=Carrot.UI.Controls"
-        mc:Ignorable="d" Title="MainWindow" Height="450" Width="600" SizeToContent="Height"
-        WindowStartupLocation="CenterScreen">
-    <StackPanel Orientation="Vertical" Margin="12">
+        mc:Ignorable="d" Title="MainWindow" Height="450" Width="600"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <cupicker:ColorComboBox Margin="12" x:Name="colorBox1" SelectedIndex="0"
-                VerticalAlignment="Center" HorizontalAlignment="Center" ExtraColors="{Binding}"
+        <cupicker:ColorComboBox Margin="0,0,0,6" Grid.Row="0" x:Name="colorBox1" SelectedIndex="0"
+                ExtraColors="{Binding TestColors}"
                 SelectedColorChanged="ColorBox_SelectedColorChanged" />
+        <cufont:FontComboBox x:Name="fontBox" Grid.Row="1" Margin="0,0,0,6"
+                FontChanged="FontComboBox_FontChanged" SelectedIndex="3"
+                SelectedFont="{Binding RandomFont}" />
 
-        <TextBox Margin="12" x:Name="textBox" Padding="12" FontSize="16" Text="中文字体 ABC abc XYZ xyz" />
+        <Button Grid.Row="2" Padding="12" x:Name="button" Click="Button_Click">Select Font</Button>
 
-        <Button Padding="12" Margin="12" x:Name="button" Click="Button_Click">Select Font</Button>
+        <TextBox Grid.Row="3" Margin="12" x:Name="textBox" Padding="12" FontSize="16"
+                Text="中文字体 ABC abc XYZ xyz" />
 
-        <cufont:FontComboBox HorizontalAlignment="Center" MinWidth="200" SelectedIndex="5" />
-
-    </StackPanel>
+    </Grid>
 </Window>

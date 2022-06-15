@@ -5,34 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace Carrot.UI.Controls.Font {
-    internal static class FontUtilities {
+    public static class FontUtilities {
 
-        public static string[] ourLocales = { "zh-CN", "zh-HK", "zh-TW" };
-        public static LocalizedFontFamily GetLocalizedFontFamily(FontFamily fontfamily) {
+        public static readonly string[] ZhLocales = { "zh-CN", "zh-HK", "zh-TW" };
+        public static FontExtraInfo GetLocalizedFontFamily(FontFamily fontfamily) {
 
             var lsd = fontfamily.FamilyNames;
             lsd.TryGetValue(XmlLanguage.GetLanguage("en-US"), out string englishName);
             string localizedName = null;
             //var locale = CultureInfo.CurrentCulture.Name;
-            foreach (var loc in ourLocales) {
+            foreach (var loc in ZhLocales) {
                 if (!string.IsNullOrEmpty(localizedName)) { break; }
                 lsd.TryGetValue(XmlLanguage.GetLanguage(loc), out localizedName);
             }
             //if (lsd.ContainsKey(XmlLanguage.GetLanguage(locale))) {
             //    lsd.TryGetValue(XmlLanguage.GetLanguage(locale), out localizedName);
             //}
-            var a = new LocalizedFontFamily(englishName ?? lsd.FirstOrDefault().Value, localizedName, fontfamily);
-            return a;
+            return new FontExtraInfo(englishName ?? lsd.FirstOrDefault().Value, localizedName, fontfamily);
         }
 
-        public static IEnumerable<LocalizedFontFamily> AllFonts => LocalizedFonts();
+        public static ICollection<FontExtraInfo> AllFonts => LocalizedFonts();
 
-        public static IEnumerable<LocalizedFontFamily> LocalizedFonts() {
-            var cnlist = new List<LocalizedFontFamily>();
-            var enlist = new List<LocalizedFontFamily>();
+        public static ICollection<FontExtraInfo> LocalizedFonts() {
+            var cnlist = new List<FontExtraInfo>();
+            var enlist = new List<FontExtraInfo>();
             foreach (var font in Fonts.SystemFontFamilies) {
+                var names = string.Join(", ", font.FamilyNames.Select(it => $"{it.Value}({it.Key})"));
+                //Debug.WriteLine($"Add Font {font.Source} {names}");
                 var localizedFont = GetLocalizedFontFamily(font);
                 if (string.IsNullOrEmpty(localizedFont.LocalizedName)) {
                     enlist.Add(localizedFont);

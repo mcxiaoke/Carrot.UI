@@ -23,11 +23,11 @@
                     <TextBlock Text="{Binding Stretch}" />
                 </WrapPanel>
             </DataTemplate>
-            <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}"
+            <CollectionViewSource Source="{Binding Source={x:Static local:FontUtilities.AllFonts}}"
                     x:Key="familyCollection">
-                <CollectionViewSource.SortDescriptions>
+                <!--<CollectionViewSource.SortDescriptions>
                     <scm:SortDescription PropertyName="Source" Direction="Ascending" />
-                </CollectionViewSource.SortDescriptions>
+                </CollectionViewSource.SortDescriptions>-->
             </CollectionViewSource>
         </Grid.Resources>
         <Grid DataContext="{StaticResource familyCollection}">
@@ -57,7 +57,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1" Padding="6" Foreground="Black"
                     FontStyle="Italic" Grid.ColumnSpan="2"><Run Text="字体样式" /></TextBlock>
             <ListBox x:Name="lstTypefaces" Grid.Row="1" Grid.Column="1"
-                    ItemsSource="{Binding FamilyTypefaces}" Margin="6,6,6,0">
+                    ItemsSource="{Binding Family.FamilyTypefaces}" Margin="6,6,6,0">
                 <ListBox.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}">LightBlue</SolidColorBrush>
                 </ListBox.Resources>

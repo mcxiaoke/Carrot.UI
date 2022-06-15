@@ -5,8 +5,8 @@ using System.Windows.Media;
 
 namespace Carrot.UI.Controls.Font {
 
-    public class FontInfo {
-        public FontFamily Family { get; set; }
+    public class FontChooserInfo {
+        public FontExtraInfo Font { get; set; }
         public double Size { get; set; }
         public FontStyle Style { get; set; }
         public FontStretch Stretch { get; set; }
@@ -17,15 +17,15 @@ namespace Carrot.UI.Controls.Font {
 
         public static string TypefaceToString(FamilyTypeface ttf) {
             StringBuilder sb = new StringBuilder(ttf.Stretch.ToString());
-            sb.Append("-");
+            sb.Append('-');
             sb.Append(ttf.Weight.ToString());
-            sb.Append("-");
+            sb.Append('-');
             sb.Append(ttf.Style.ToString());
             return sb.ToString();
         }
 
-        public static void ApplyFont(Control control, FontInfo font) {
-            control.FontFamily = font.Family;
+        public static void ApplyFont(Control control, FontChooserInfo font) {
+            control.FontFamily = font.Font.Family;
             control.FontSize = font.Size;
             control.FontStyle = font.Style;
             control.FontStretch = font.Stretch;
@@ -33,9 +33,9 @@ namespace Carrot.UI.Controls.Font {
             control.Foreground = font.BrushColor;
         }
 
-        public static FontInfo GetControlFont(Control control) {
-            FontInfo font = new FontInfo();
-            font.Family = control.FontFamily;
+        public static FontChooserInfo GetControlFont(Control control) {
+            FontChooserInfo font = new FontChooserInfo();
+            font.Font = FontUtilities.GetLocalizedFontFamily(control.FontFamily);
             font.Size = control.FontSize;
             font.Style = control.FontStyle;
             font.Stretch = control.FontStretch;
@@ -46,12 +46,12 @@ namespace Carrot.UI.Controls.Font {
 
         #endregion Static Utils
 
-        public FontInfo() {
+        public FontChooserInfo() {
         }
 
-        public FontInfo(FontFamily fam, double sz, FontStyle style,
+        public FontChooserInfo(FontFamily fam, double sz, FontStyle style,
                         FontStretch strc, FontWeight weight, SolidColorBrush c) {
-            this.Family = fam;
+            this.Font = FontUtilities.GetLocalizedFontFamily(fam);
             this.Size = sz;
             this.Style = style;
             this.Stretch = strc;
@@ -76,7 +76,7 @@ namespace Carrot.UI.Controls.Font {
         }
 
         public override string ToString() {
-            return $"{{{nameof(Family)}={Family}, {nameof(Size)}={Size}, {nameof(Style)}={Style}, {nameof(Stretch)}={Stretch}, {nameof(Weight)}={Weight}, {nameof(BrushColor)}={BrushColor}, {nameof(Color)}={Color}, {nameof(Typeface)}={Typeface}}}";
+            return $"{{{nameof(Font)}={Font}, {nameof(Size)}={Size}, {nameof(Style)}={Style}, {nameof(Stretch)}={Stretch}, {nameof(Weight)}={Weight}, {nameof(BrushColor)}={BrushColor}, {nameof(Color)}={Color}, {nameof(Typeface)}={Typeface}}}";
         }
     }
 }

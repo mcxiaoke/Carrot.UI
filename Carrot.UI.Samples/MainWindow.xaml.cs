@@ -24,7 +24,7 @@ namespace Carrot.UI.Samples {
     /// </summary>
 
     public partial class MainWindow : Window {
-        public List<ColorComboBoxItem> _extraColors1 = new List<ColorComboBoxItem>() {
+        public List<ColorComboBoxItem> TestColors => new List<ColorComboBoxItem>() {
              ColorComboBoxItem.Create("TestColor111",
                 UIHelper.ParseColor("#334455")),
              ColorComboBoxItem.Create("TestColor211",
@@ -38,10 +38,13 @@ namespace Carrot.UI.Samples {
                 UIHelper.ParseColor("#80cccccc")),
         };
 
+        public ICollection<FontExtraInfo> SystemFonts => FontUtilities.AllFonts;
+        public FontExtraInfo RandomFont => SystemFonts.Skip(new Random().Next(20)).FirstOrDefault();
+
 
         public MainWindow() {
             InitializeComponent();
-            colorBox1.DataContext = _extraColors1;
+            Debug.WriteLine($"MainWindow init {RandomFont}");
         }
 
         private void ColorBox_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<ColorComboBoxItem> e) {
@@ -53,12 +56,12 @@ namespace Carrot.UI.Samples {
                 ColorFontDialog fntDialog = new ColorFontDialog();
                 fntDialog.ShowColorPicker = true;
                 fntDialog.Owner = this;
-                fntDialog.Font = FontInfo.GetControlFont(this.textBox);
+                fntDialog.Font = FontChooserInfo.GetControlFont(this.textBox);
                 if (fntDialog.ShowDialog() == true) {
-                    FontInfo selectedFont = fntDialog.Font;
+                    FontChooserInfo selectedFont = fntDialog.Font;
 
                     if (selectedFont != null) {
-                        FontInfo.ApplyFont(this.textBox, selectedFont);
+                        FontChooserInfo.ApplyFont(this.textBox, selectedFont);
                     }
                 }
             } catch (Exception ex) {
@@ -67,8 +70,12 @@ namespace Carrot.UI.Samples {
         }
 
         private void FontComboBox_FontChanged(object sender, RoutedEventArgs e) {
-            //var fb = sender as FontComboBox;
-            //Debug.WriteLine($"FontComboBox_FontChanged selected={fb.SelectedFont} {fb.SelectedIndex}");
+
+        }
+
+        private void FontComboBox_FontChanged(object sender, RoutedPropertyChangedEventArgs<FontExtraInfo> e) {
+            Debug.WriteLine($"FontComboBox_FontChanged old={e.OldValue} new={e.NewValue}");
+
         }
     }
 }

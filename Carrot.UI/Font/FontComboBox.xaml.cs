@@ -16,41 +16,63 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Diagnostics;
+using Carrot.UI.Controls.Picker;
 
 namespace Carrot.UI.Controls.Font {
 
     public partial class FontComboBox : UserControl {
+        #region Event Handlers
+
+        public static readonly RoutedEvent FontChangedEvent =
+    EventManager.RegisterRoutedEvent(nameof(FontChanged),
+        RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<FontExtraInfo>),
+        typeof(FontComboBox));
 
 
-        public static IEnumerable<LocalizedFontFamily> AllFonts => FontUtilities.LocalizedFonts();
+        public event RoutedPropertyChangedEventHandler<FontExtraInfo> FontChanged {
+            add { AddHandler(FontChangedEvent, value); }
 
-        public static readonly RoutedEvent FontChangedEvent = EventManager.RegisterRoutedEvent(
-    nameof(FontChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(FontComboBox));
+            remove { RemoveHandler(FontChangedEvent, value); }
+        }
+
+
+        private static void OnSelectedFontChanged(DependencyObject dpobj,
+            DependencyPropertyChangedEventArgs e) {
+            var fcb = dpobj as FontComboBox;
+            fcb.lastItem = e.OldValue as FontExtraInfo;
+            Debug.WriteLine($"OnSelectedFontChanged {e.OldValue} => {e.NewValue}");
+        }
+
+        #endregion
+
+        public static IEnumerable<FontExtraInfo> AllFonts => FontUtilities.LocalizedFonts();
 
         public static readonly DependencyProperty SelectedFontProperty = DependencyProperty.Register(
-    nameof(SelectedFont), typeof(LocalizedFontFamily), typeof(FontComboBox), new UIPropertyMetadata(null));
+                name: nameof(SelectedFont),
+                propertyType: typeof(FontExtraInfo),
+                ownerType: typeof(FontComboBox),
+                typeMetadata: new UIPropertyMetadata(null, OnSelectedFontChanged));
+
 
         public static readonly DependencyProperty SelectedIndexProperty = DependencyProperty.Register(
-nameof(SelectedIndex), typeof(int), typeof(FontComboBox), new PropertyMetadata(-1));
-
+            nameof(SelectedIndex),
+            typeof(int),
+            typeof(FontComboBox),
+            new UIPropertyMetadata(-1));
 
         public FontComboBox() {
             InitializeComponent();
             Debug.WriteLine(CultureInfo.CurrentCulture);
+            cbFonts.DataContext = this;
             //this.DataContext = this;
-            // = DataContext="{Binding RelativeSource={RelativeSource Self}}"
         }
 
 
-        public event EventHandler<RoutedEventArgs> FontChanged {
-            add { AddHandler(FontChangedEvent, value); }
-            remove { RemoveHandler(FontChangedEvent, value); }
-        }
-
-        public LocalizedFontFamily SelectedFont {
-            get => (LocalizedFontFamily)GetValue(SelectedFontProperty);
+        public FontExtraInfo SelectedFont {
+            get => (FontExtraInfo)GetValue(SelectedFontProperty);
             set {
                 SetValue(SelectedFontProperty, value);
+                Debug.WriteLine($"SelectedFont set to {value}");
             }
         }
 
@@ -62,16 +84,23 @@ nameof(SelectedIndex), typeof(int), typeof(FontComboBox), new PropertyMetadata(-
         }
 
         private void FontComboBox_Loaded(object sender, RoutedEventArgs e) {
-
+            Debug.WriteLine($"FontComboBox_Loaded init=[{SelectedFont}] index=[{SelectedIndex}]");
         }
 
         private void CBFonts_Loaded(object sender, RoutedEventArgs e) {
+            Debug.WriteLine($"CBFonts_Loaded init=[{SelectedFont}] index=[{SelectedIndex}]");
+            if (cbFonts.SelectedItem != null) {
+                lastItem = (FontExtraInfo)cbFonts.SelectedItem;
+            }
         }
 
+        private FontExtraInfo lastItem;
         private void CBFonts_DropDownClosed(object sender, EventArgs e) {
-            this.SetValue(SelectedFontProperty, CBFonts.SelectedItem);
-            RaiseEvent(new RoutedEventArgs(FontComboBox.FontChangedEvent));
-            Debug.WriteLine($"CBFonts_DropDownClosed selected={this.SelectedFont}");
+            var newItem = (FontExtraInfo)cbFonts.SelectedItem;
+            Debug.WriteLine($"CBFonts_DropDownClosed item={newItem}");
+            var args = new RoutedPropertyChangedEventArgs<FontExtraInfo>(lastItem, newItem);
+            args.RoutedEvent = FontChangedEvent;
+            RaiseEvent(args);
         }
     }
 }
