@@ -94,8 +94,8 @@ namespace Carrot.UI.Controls.Picker {
             .Select(prop => ColorComboBoxItem.Create(prop.Name, (Color)prop.GetValue(null)));
 
         private void ColorComboBox_Loaded(object sender, RoutedEventArgs e) {
-            Debug.WriteLine("ColorComboBox_Loaded");
-            ExtraColors?.ForEach(item => Debug.WriteLine($"ColorComboBox_Loaded extra {item.Key} {item.Value}"));
+            Debug.WriteLine($"ColorComboBox_Loaded {Name}");
+            //ExtraColors?.ForEach(item => Debug.WriteLine($"ColorComboBox_Loaded extra {item.Key} {item.Value}"));
             var allColors = new List<ColorComboBoxItem>();
             if (ExtraColors?.Count > 0) {
                 allColors.AddRange(ExtraColors);
@@ -106,7 +106,7 @@ namespace Carrot.UI.Controls.Picker {
         }
 
         private void ComboBox_Table_Loaded(object sender, RoutedEventArgs e) {
-            Debug.WriteLine($"ComboBox_Table_Loaded {cmbColors.Items.Count}");
+            Debug.WriteLine($"ComboBox_Table_Loaded {Name} {cmbColors.Items.Count}");
             if (sender is Grid grid) {
                 if (grid.RowDefinitions.Count == 0) {
                     for (int r = 0; r <= cmbColors.Items.Count / ColumnCount; r++) {
@@ -135,7 +135,7 @@ namespace Carrot.UI.Controls.Picker {
             if (e.AddedItems.Count > 0) {
                 newColor = (ColorComboBoxItem)e.AddedItems[0];
             }
-            Debug.WriteLine($"SelectionChanged old={oldColor} new={newColor}");
+            Debug.WriteLine($"SelectionChanged {Name} old={oldColor} new={newColor}");
             var newEventArgs = new RoutedPropertyChangedEventArgs<ColorComboBoxItem>
                 (oldColor, newColor) { RoutedEvent = SelectedColorChangedEvent };
 
@@ -162,7 +162,7 @@ namespace Carrot.UI.Controls.Picker {
 
 
         private void CmbColors_DropDownClosed(object sender, EventArgs e) {
-            Debug.WriteLine($"CmbColors_DropDownClosed selected={cmbColors.SelectedItem}");
+            Debug.WriteLine($"CmbColors_DropDownClosed {Name} selected={cmbColors.SelectedItem}");
         }
 
         #endregion

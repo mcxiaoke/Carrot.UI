@@ -17,6 +17,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <cupicker:ColorComboBox Margin="0,0,0,6" Grid.Row="0" x:Name="colorBox1" SelectedIndex="0"
@@ -26,9 +28,10 @@
                 FontChanged="FontComboBox_FontChanged" SelectedIndex="3"
                 SelectedFont="{Binding RandomFont}" />
 
-        <Button Grid.Row="2" Padding="12" x:Name="button" Click="Button_Click">Select Font</Button>
+        <Button Grid.Row="3" Padding="12" x:Name="fontButton" Click="FontButton_Click">Font Picker</Button>
+        <Button Grid.Row="4" Padding="12" x:Name="colorButton" Click="ColorButton_Click">Color Picker</Button>
 
-        <TextBox Grid.Row="3" Margin="12" x:Name="textBox" Padding="12" FontSize="16"
+        <TextBox Grid.Row="2" Margin="12" x:Name="textBox" Padding="12" FontSize="16"
                 Text="中文字体 ABC abc XYZ xyz" />
 
     </Grid>

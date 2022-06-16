@@ -108,6 +108,12 @@ csharp_style_unused_value_expression_statement_preference = discard_variable:sil
 # RCS1036: Remove unnecessary blank line.
 dotnet_diagnostic.RCS1036.severity = none
 
+# RCS1224: Make method an extension method.
+dotnet_diagnostic.RCS1224.severity = none
+
+# RCS1123: Add parentheses when necessary.
+dotnet_diagnostic.RCS1123.severity = none
+
 [*.vb]
 #### 命名样式 ####
 

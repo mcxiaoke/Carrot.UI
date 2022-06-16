@@ -39,7 +39,7 @@ namespace Carrot.UI.Controls.Font {
         private static void OnSelectedFontChanged(DependencyObject dpobj,
             DependencyPropertyChangedEventArgs e) {
             var fcb = dpobj as FontComboBox;
-            fcb.lastItem = e.OldValue as FontExtraInfo;
+            fcb.oldItem = e.OldValue as FontExtraInfo;
             Debug.WriteLine($"OnSelectedFontChanged {e.OldValue} => {e.NewValue}");
         }
 
@@ -84,23 +84,24 @@ namespace Carrot.UI.Controls.Font {
         }
 
         private void FontComboBox_Loaded(object sender, RoutedEventArgs e) {
-            Debug.WriteLine($"FontComboBox_Loaded init=[{SelectedFont}] index=[{SelectedIndex}]");
+            Debug.WriteLine($"FontComboBox_Loaded {Name} init=[{SelectedFont}] index=[{SelectedIndex}]");
         }
 
         private void CBFonts_Loaded(object sender, RoutedEventArgs e) {
-            Debug.WriteLine($"CBFonts_Loaded init=[{SelectedFont}] index=[{SelectedIndex}]");
-            if (cbFonts.SelectedItem != null) {
-                lastItem = (FontExtraInfo)cbFonts.SelectedItem;
-            }
+            Debug.WriteLine($"CBFonts_Loaded {Name} init=[{SelectedFont}] index=[{SelectedIndex}]");
+            oldItem = (FontExtraInfo)cbFonts.SelectedItem;
         }
 
-        private FontExtraInfo lastItem;
+        private FontExtraInfo oldItem;
         private void CBFonts_DropDownClosed(object sender, EventArgs e) {
             var newItem = (FontExtraInfo)cbFonts.SelectedItem;
-            Debug.WriteLine($"CBFonts_DropDownClosed item={newItem}");
-            var args = new RoutedPropertyChangedEventArgs<FontExtraInfo>(lastItem, newItem);
-            args.RoutedEvent = FontChangedEvent;
-            RaiseEvent(args);
+            Debug.WriteLine($"CBFonts_DropDownClosed new={newItem}");
+            if (newItem != oldItem) {
+                var args = new RoutedPropertyChangedEventArgs<FontExtraInfo>(oldItem, newItem);
+                args.RoutedEvent = FontChangedEvent;
+                RaiseEvent(args);
+            }
+
         }
     }
 }

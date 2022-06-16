@@ -11,12 +11,19 @@
     <PackageProjectUrl>https://github.com/mcxiaoke/Carrot.UI</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mcxiaoke/Carrot.UI.git</RepositoryUrl>
     <PackageTags>wpf;controls;ui;colorpicker</PackageTags>
-    <AssemblyVersion>0.3.6</AssemblyVersion>
-    <FileVersion>0.3.6</FileVersion>
-    <Version>0.3.6</Version>
+    <AssemblyVersion>0.3.7</AssemblyVersion>
+    <FileVersion>0.3.7</FileVersion>
+    <Version>0.3.7</Version>
     <PackageReleaseNotes>Carrot UI Controls and Utilities</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Color\**" />
+    <EmbeddedResource Remove="Color\**" />
+    <None Remove="Color\**" />
+    <Page Remove="Color\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Resources\colorfont_icon.png" />
@@ -29,6 +36,10 @@
 
   <ItemGroup>
     <Resource Include="Resources\colorfont_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

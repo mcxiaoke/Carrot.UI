@@ -51,30 +51,36 @@ namespace Carrot.UI.Samples {
             Debug.WriteLine($"ColorBox_SelectedColorChanged changed {e.OldValue} => {e.NewValue}");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
-            try {
-                ColorFontDialog fntDialog = new ColorFontDialog();
-                fntDialog.ShowColorPicker = true;
-                fntDialog.Owner = this;
-                fntDialog.Font = FontChooserInfo.GetControlFont(this.textBox);
-                if (fntDialog.ShowDialog() == true) {
-                    FontChooserInfo selectedFont = fntDialog.Font;
-
-                    if (selectedFont != null) {
-                        FontChooserInfo.ApplyFont(this.textBox, selectedFont);
-                    }
-                }
-            } catch (Exception ex) {
-                Debug.WriteLine(ex.StackTrace);
-            }
-        }
-
         private void FontComboBox_FontChanged(object sender, RoutedEventArgs e) {
 
         }
 
         private void FontComboBox_FontChanged(object sender, RoutedPropertyChangedEventArgs<FontExtraInfo> e) {
             Debug.WriteLine($"FontComboBox_FontChanged old={e.OldValue} new={e.NewValue}");
+
+        }
+
+        private void FontButton_Click(object sender, RoutedEventArgs e) {
+            ColorFontDialog fntDialog = new ColorFontDialog();
+            fntDialog.ShowColorPicker = true;
+            fntDialog.Owner = this;
+            fntDialog.Font = FontChooserInfo.GetControlFont(this.textBox);
+            if (fntDialog.ShowDialog() == true) {
+                FontChooserInfo selectedFont = fntDialog.Font;
+
+                if (selectedFont != null) {
+                    FontChooserInfo.ApplyFont(this.textBox, selectedFont);
+                }
+            }
+        }
+
+        private void ColorButton_Click(object sender, RoutedEventArgs e) {
+            //var dialog = new ColorPickerDialog();
+            //dialog.Owner = this;
+            //dialog.ShowDialog();
+            var dialog = new Dsafa.WpfColorPicker.ColorPickerDialog();
+            dialog.Owner = this;
+            dialog.ShowDialog();
 
         }
     }
