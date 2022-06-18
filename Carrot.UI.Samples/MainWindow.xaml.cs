@@ -17,6 +17,7 @@ using Carrot.UI.Controls;
 using Carrot.UI.Controls.Utils;
 using Carrot.UI.Controls.Picker;
 using Carrot.UI.Controls.Font;
+using Carrot.UI.ColorPicker;
 
 namespace Carrot.UI.Samples {
     /// <summary>
@@ -75,13 +76,16 @@ namespace Carrot.UI.Samples {
         }
 
         private void ColorButton_Click(object sender, RoutedEventArgs e) {
-            //var dialog = new ColorPickerDialog();
-            //dialog.Owner = this;
-            //dialog.ShowDialog();
-            var dialog = new Dsafa.WpfColorPicker.ColorPickerDialog();
-            dialog.Owner = this;
-            dialog.ShowDialog();
-
+            var dialog = new ColorPickerDialog(Colors.BlueViolet) {
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Title = "选择颜色",
+                ButtonOKText = "确定",
+                ButtonCancelText = "取消"
+            };
+            if (dialog.ShowDialog() == true) {
+                textBox.Foreground = new SolidColorBrush(dialog.PickedColor);
+            }
         }
     }
 }
