@@ -11,6 +11,9 @@ namespace Carrot.UI.Controls {
         // Y = 0.2126 R + 0.7152 G + 0.0722 B
         public static bool IsDark(this Color c) => (c.R * 0.2126) + (c.G * 0.7152) + (c.B * 0.0722) < 255 / 2;
 
+        // https://web.mst.edu/~rhall/web_design/color_readability.html
+        public static int Brightness(this Color c) => ((c.R * 299) + (c.G * 587) + (c.B * 114)) / 1000;
+
         public static System.Drawing.Color ToDrawingColor(this System.Windows.Media.Color color) {
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
         }

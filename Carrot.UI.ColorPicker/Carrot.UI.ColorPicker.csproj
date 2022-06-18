@@ -7,32 +7,25 @@
     <Company>CatCastle</Company>
     <Authors>CatCastle</Authors>
     <Copyright>Copyright © CatCastle 2022</Copyright>
-    <Description>Carrot UI Controls and Utilities</Description>
+    <Description>Carrot UI Color Picker</Description>
     <PackageProjectUrl>https://github.com/mcxiaoke/Carrot.UI</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mcxiaoke/Carrot.UI.git</RepositoryUrl>
     <PackageTags>wpf;controls;ui;colorpicker</PackageTags>
-    <AssemblyVersion>0.3.7</AssemblyVersion>
-    <FileVersion>0.3.7</FileVersion>
-    <Version>0.3.7</Version>
-    <PackageReleaseNotes>Carrot UI Controls and Utilities</PackageReleaseNotes>
+    <AssemblyVersion>0.1.0</AssemblyVersion>
+    <FileVersion>0.1.0</FileVersion>
+    <Version>0.1.0</Version>
+    <PackageReleaseNotes>Carrot UI Color Picker</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\colorfont_icon.png" />
+    <None Remove="color_picker_black.png" />
+    <None Remove="Resources\color_picker_black.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include=".\LICENSE.txt" Link="LICENSE.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\colorfont_icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
+    <Resource Include="color_picker_black.png" />
+    <Resource Include="Resources\color_picker_black.png" />
   </ItemGroup>
 
 </Project>

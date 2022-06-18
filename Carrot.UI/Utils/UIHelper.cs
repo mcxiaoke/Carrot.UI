@@ -9,6 +9,24 @@ using System.Windows;
 namespace Carrot.UI.Controls.Utils {
     public static class UIHelper {
 
+        public static double GetDpiScale(this Window window) {
+            // https://dzimchuk.net/best-way-to-get-dpi-value-in-wpf/
+            // https://docs.microsoft.com/zh-cn/archive/blogs/jaimer/getting-system-dpi-in-wpf-app
+            // https://stackoverflow.com/questions/1918877/how-can-i-get-the-dpi-in-wpf
+            //var dpiXProperty = typeof(SystemParameters).GetProperty("DpiX", BindingFlags.NonPublic | BindingFlags.Static);
+            //var dpiYProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
+            //var dpiX = (int)dpiXProperty.GetValue(null, null);
+            //var dpiY = (int)dpiYProperty.GetValue(null, null);
+            //using (System.Drawing.Graphics g = System.Drawing.Graphics.FromHwnd(IntPtr.Zero)) {
+            //    Debug.WriteLine($"Graphics x={g.DpiX} y={g.DpiY} s={g.DpiX / 96}");
+            //    double factor = g.DpiX / 96;
+            //}
+            return PresentationSource.FromVisual(window).CompositionTarget.TransformToDevice.M11;
+            // or
+            // return VisualTreeHelper.GetDpi(window).DpiScaleX;
+
+        }
+
         public static T GetChildOfType<T>(this DependencyObject depObj) where T :
     DependencyObject {
             if (depObj == null)
@@ -51,7 +69,7 @@ namespace Carrot.UI.Controls.Utils {
 
         public static Color ParseColor(string hex) {
             hex = hex.Replace("#", string.Empty);
-            if (hex.Length < 6 || hex.Length > 8) {
+            if (hex.Length != 6 && hex.Length != 8) {
                 throw new ArgumentOutOfRangeException($"Invalid Color Hex: {hex}");
             }
             if (hex.Length == 6) {
